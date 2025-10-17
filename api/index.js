@@ -18,6 +18,13 @@ bot.onText(/\/start/, (msg) => {
   bot.sendMessage(chatId, `📸 Click here to open the camera:\n${link}`);
 });
 
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Telegram Photo Bot is Running ✅</h2>
+    <p>Use <a href="/capture?chat_id=123456">/capture</a> route to test camera access.</p>
+  `);
+});
+
 app.get("/capture", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/capture.html"));
 });
