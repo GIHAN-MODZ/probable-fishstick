@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Allow Camera Access</h2>
+    <video id="video" autoplay playsinline></video>
+    <button id="capture">Capture</button>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const chatId = urlParams.get('chat_id');
+      const video = document.getElementById('video');
+
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => video.srcObject = stream);
+
+      document.getElementById('capture').onclick = async () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const photoData = canvas.toDataURL('image/jpeg').split(',')[1];
+        await fetch('/upload', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ chatId, photoData })
+        });
+        alert('Photo sent successfully!');
+      };
+    </script>
+  </body>
+  </html>
