@@ -5,7 +5,7 @@ import TelegramBot from "node-telegram-bot-api";
 
 const token = '8025378224:AAHUAhgqJ-adKEKCcm7JZuhD5MQYFIEknQk';
 const bot = new TelegramBot(token, { polling: true });
-onst app = express();
+const app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
