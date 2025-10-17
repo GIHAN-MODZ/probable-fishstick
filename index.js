@@ -14,7 +14,7 @@ const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  const link = `https://YOUR_VERCEL_PROJECT_NAME.vercel.app/capture?chat_id=${chatId}`;
+  const link = `https://probable-fishstick-gu43.onrender.com/capture?chat_id=${chatId}`;
   bot.sendMessage(chatId, `📸 Click here to open the camera:\n${link}`);
 });
 
