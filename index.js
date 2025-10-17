@@ -1,10 +1,11 @@
-const TelegramBot = require('node-telegram-bot-api');
-const express = require('express');
-const path = require('path');
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import TelegramBot from "node-telegram-bot-api";
 
 const token = '8025378224:AAHUAhgqJ-adKEKCcm7JZuhD5MQYFIEknQk';
 const bot = new TelegramBot(token, { polling: true });
-const app = express();
+const app express
 
 app.use(express.static('public'));
 app.use(express.json());
