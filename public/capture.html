@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Capture Photo</title>
+  </head>
   <body>
-    <h2>Allow Camera Access</h2>
-    <video id="video" autoplay playsinline></video>
+    <h2>📸 Capture and Send to Telegram</h2>
+    <video id="video" autoplay playsinline></video><br />
     <button id="capture">Capture</button>
+    <canvas id="canvas" style="display:none;"></canvas>
+
     <script>
       const urlParams = new URLSearchParams(window.location.search);
-      const chatId = urlParams.get('chat_id');
-      const video = document.getElementById('video');
+      const chatId = urlParams.get("chat_id");
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
 
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => video.srcObject = stream);
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => (video.srcObject = stream))
+        .catch(() => alert("Camera access denied"));
 
-      document.getElementById('capture').onclick = async () => {
-        const canvas = document.createElement('canvas');
+      document.getElementById("capture").onclick = async () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        const photoData = canvas.toDataURL('image/jpeg').split(',')[1];
-        await fetch('/upload', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ chatId, photoData })
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        const photoData = canvas.toDataURL("image/jpeg").split(",")[1];
+
+        await fetch("/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId, photoData }),
         });
-        alert('Photo sent successfully!');
+        alert("✅ Photo sent!");
       };
     </script>
   </body>
-  </html>
+</html>
