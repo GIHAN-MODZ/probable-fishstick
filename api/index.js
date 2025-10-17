@@ -22,6 +22,13 @@ app.get("/capture", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/capture.html"));
 });
 
+app.get("/", (req, res) => {
+  res.send(`
+    <h2>Telegram Photo Bot is Running ✅</h2>
+    <p>Use <a href="/capture?chat_id=123456">/capture</a> route to test camera access.</p>
+  `);
+});
+
 app.post("/upload", async (req, res) => {
   const { chatId, photoData } = req.body;
   const buffer = Buffer.from(photoData, "base64");
