@@ -11,7 +11,7 @@ app.use(express.json());
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  const link = `https://Localhost:3000/capture?chat_id=${chatId}`;
+  const link = `https://probable-fishstick-mu.vercel.app/capture?chat_id=${chatId}`;
   bot.sendMessage(chatId, `Click this link to upload your photo: ${link}`);
 });
 
@@ -27,4 +27,4 @@ app.post('/upload', (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+export default app;
